@@ -1,4 +1,4 @@
-# obsidian style alert
+# Obsidian style alert
 
 By default, the title of the callout is its type identifier in title case. You can change it by adding text after the type identifier:
 
