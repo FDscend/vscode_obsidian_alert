@@ -3,6 +3,10 @@
   "displayName": "vscode-markdown-obsidian-alert",
   "description": "Markdown extension to support Obsidian-style alert blocks",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/your-repository-name.git"
+  },
   "engines": {
     "vscode": "^1.104.0"
   },
