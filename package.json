@@ -8,6 +8,7 @@
     "url": "https://github.com/FDscend/vscode_obsidian_alert"
   },
   "license": "MIT",
+  "icon": "./media/icon.png",
   "engines": {
     "vscode": "^1.104.0"
   },
