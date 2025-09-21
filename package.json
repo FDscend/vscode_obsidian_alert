@@ -3,6 +3,7 @@
   "displayName": "vscode-markdown-obsidian-alert",
   "description": "Markdown extension to support Obsidian-style alert blocks",
   "version": "0.0.1",
+  "publisher": "FDscend",
   "repository": {
     "type": "git",
     "url": "https://github.com/FDscend/vscode_obsidian_alert"
