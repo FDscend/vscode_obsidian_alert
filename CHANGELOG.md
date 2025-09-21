@@ -1,9 +1,5 @@
 # Change Log
 
-All notable changes to the "vscode-markdown-obsidian-alert" extension will be documented in this file.
-
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
+## [0.0.1] - 2025-09-22
 
 - Initial release
