@@ -181,10 +181,10 @@ export default function admonitionPlugin(md: MarkdownIt) {
     silent: boolean
   ): boolean {
     const startPos = state.bMarks[startLine] + state.tShift[startLine];
-    if (startPos >= state.eMarks[startLine]) return false;
+    if (startPos >= state.eMarks[startLine]) { return false; }
 
     // 必须以 ">" 开头
-    if (state.src.charCodeAt(startPos) !== 0x3e /* '>' */) return false;
+    if (state.src.charCodeAt(startPos) !== 0x3e /* '>' */) { return false; }
 
     const firstLineText = state.src.slice(startPos, state.eMarks[startLine]);
     const firstLine = firstLineText.replace(/^\s{0,3}>\s?/, "").trim();
@@ -192,9 +192,9 @@ export default function admonitionPlugin(md: MarkdownIt) {
     const headMatch = /^\[!([A-Za-z0-9]+(?:\|[^\]]*)?)\]([+-]?)(.*)/.exec(
       firstLine
     );
-    if (!headMatch) return false;
+    if (!headMatch) { return false; }
 
-    if (silent) return true;
+    if (silent) { return true; }
 
     const rawKeyword = headMatch[1];
     const parts = rawKeyword.split("|");
@@ -212,10 +212,10 @@ export default function admonitionPlugin(md: MarkdownIt) {
       const lineEnd = state.eMarks[nextLine];
       const rawLine = state.src.slice(lineStart, lineEnd);
 
-      if (/^\s*$/.test(rawLine)) break;
+      if (/^\s*$/.test(rawLine)) { break; }
 
       const m = rawLine.match(/^\s{0,3}>\s?(.*)/);
-      if (!m) break;
+      if (!m) { break; }
 
       bodyLines.push(m[1]);
     }
@@ -283,7 +283,6 @@ export default function admonitionPlugin(md: MarkdownIt) {
     const keyword = (meta.keyword || "NOTE").toUpperCase();
     const option = (meta.option || "").toLowerCase();
     const collapse = meta.collapseFlag as string;
-    const customTitle = meta.customTitle || "";
 
     if (thmMeta[keyword]) {
       const defaultTitle = thmMeta[keyword].defaultTitle || keyword;
@@ -318,7 +317,6 @@ export default function admonitionPlugin(md: MarkdownIt) {
 
     const metaDef = alertMeta[keyword] || alertMeta["NOTE"];
     const icon = metaDef.icon || "";
-    // const titleText = customTitle || metaDef.defaultTitle || keyword;
 
     const titleText = metaDef.defaultTitle || keyword;
     let titleHtml: string;
@@ -372,10 +370,12 @@ export default function admonitionPlugin(md: MarkdownIt) {
     tokens: Token[],
     idx: number,
     _options,
-    env
+    env,
+    self
   ) => {
     const content = tokens[idx].content || "";
-    return md.render(content, env);
+    // return md.render(content, env);
+    return self.render(md.parse(content, env), _options, env);
   };
 
   md.renderer.rules["admonition_close"] = (tokens: Token[], idx: number) => {
