@@ -374,8 +374,7 @@ export default function admonitionPlugin(md: MarkdownIt) {
     self
   ) => {
     const content = tokens[idx].content || "";
-    // return md.render(content, env);
-    return self.render(md.parse(content, env), _options, env);
+    return md.render(content, env);
   };
 
   md.renderer.rules["admonition_close"] = (tokens: Token[], idx: number) => {
