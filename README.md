@@ -88,7 +88,7 @@ Create interactive, collapsible callouts:
 
 ## See Also
 
-Check out [test.md](https://github.com/FDscend/vscode_obsidian_alert/blob/master/test.md) for comprehensive examples and usage patterns.
+Check out [test.md](https://github.com/FDscend/vscode_obsidian_alert/blob/master/test/test.md) for comprehensive examples and usage patterns.
 
 ![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img1.jpg)
 
