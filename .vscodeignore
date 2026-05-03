@@ -1,5 +1,6 @@
 .vscode/**
 .vscode-test/**
+.reference/**
 out/**
 node_modules/**
 src/**
@@ -15,3 +16,4 @@ vsc-extension-quickstart.md
 test/**
 img/**
 icon.ai
+README.zh.md

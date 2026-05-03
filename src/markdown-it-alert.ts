@@ -19,6 +19,18 @@ interface PluginOptions {
   alertMeta?: Record<string, AlertMeta>;
 }
 
+function shiftTokenMaps(tokens: Token[], lineOffset: number) {
+  for (const token of tokens) {
+    if (token.map) {
+      token.map = [token.map[0] + lineOffset, token.map[1] + lineOffset];
+    }
+
+    if (token.children) {
+      shiftTokenMaps(token.children, lineOffset);
+    }
+  }
+}
+
 export default function admonitionPlugin(md: MarkdownIt) {
   const thmMeta: Record<string, TheoremMeta> = {
     THM: { defaultTitle: "Theorem" },
@@ -246,6 +258,17 @@ export default function admonitionPlugin(md: MarkdownIt) {
     { alt: ["paragraph", "reference", "blockquote"] }
   );
 
+  md.core.ruler.push("admonition_line_offset", (state) => {
+    const lineOffset = Number(state.env?.__admonitionLineOffset ?? 0);
+
+    if (!Number.isInteger(lineOffset) || lineOffset === 0) {
+      return true;
+    }
+
+    shiftTokenMaps(state.tokens, lineOffset);
+    return true;
+  });
+
   // --- core rule for theorem numbering ---
   md.core.ruler.push("admonition_numbering", (state) => {
     const thmCounters: Record<string, number> = {};
@@ -277,12 +300,36 @@ export default function admonitionPlugin(md: MarkdownIt) {
     tokens: Token[],
     idx: number,
     _options,
-    env: any
+    env,
+    self
   ) => {
     const meta = tokens[idx].meta || {};
     const keyword = (meta.keyword || "NOTE").toUpperCase();
     const option = (meta.option || "").toLowerCase();
     const collapse = meta.collapseFlag as string;
+    const token = tokens[idx];
+
+    token.tag = collapse ? "details" : "div";
+
+    if (collapse === "+") {
+      token.attrSet("open", "");
+    }
+
+    const appendClass = (className: string) => {
+      const existingClass = token.attrGet("class");
+      token.attrSet(
+        "class",
+        existingClass ? `${existingClass} ${className}` : className
+      );
+    };
+
+    const appendStyle = (styleText: string) => {
+      const existingStyle = token.attrGet("style");
+      token.attrSet(
+        "style",
+        existingStyle ? `${existingStyle}; ${styleText}` : styleText
+      );
+    };
 
     if (thmMeta[keyword]) {
       const defaultTitle = thmMeta[keyword].defaultTitle || keyword;
@@ -303,15 +350,18 @@ export default function admonitionPlugin(md: MarkdownIt) {
 
       if (meta.customTitle) {
         titleHtml += ` <span style="font-weight:normal">(${md.renderInline(
-          meta.customTitle
+          meta.customTitle,
+          env
         )})</span>`;
       }
 
+      appendClass("thm-block");
+      const wrapperOpen = self.renderToken(tokens, idx, _options);
+
       if (collapse) {
-        const openAttr = collapse === "+" ? " open" : "";
-        return `<details class="thm-block"${openAttr}><summary class="thm-summary" role="button">${titleHtml}<span class="arrow"></span></summary><div class="thm-body">`;
+        return `${wrapperOpen}<summary class="thm-summary" role="button">${titleHtml}<span class="arrow"></span></summary><div class="thm-body">`;
       } else {
-        return `<div class="thm-block"><div class="thm-title">${titleHtml}</div><div class="thm-body">`;
+        return `${wrapperOpen}<div class="thm-title">${titleHtml}</div><div class="thm-body">`;
       }
     }
 
@@ -323,7 +373,8 @@ export default function admonitionPlugin(md: MarkdownIt) {
 
     if (meta.customTitle) {
       titleHtml = `<span class="admonition-title">${md.renderInline(
-        meta.customTitle
+        meta.customTitle,
+        env
       )}</span>`;
     } else {
       titleHtml = `<span class="admonition-title">${md.utils.escapeHtml(
@@ -354,13 +405,16 @@ export default function admonitionPlugin(md: MarkdownIt) {
       color = metaDef.color || alertMeta.NOTE.color;
     }
 
+    appendClass("admonition alert-block");
+    appendStyle(`background:${color}20;`);
+    const wrapperOpen = self.renderToken(tokens, idx, _options);
+
     if (collapse) {
-      const openAttr = collapse === "+" ? " open" : "";
-      return `<details class="admonition alert-block"${openAttr} style="background:${color}20;"><summary class="admonition-summary" style="display:flex; align-items:center; gap:0.4em; color:${color}; cursor:pointer;">${
+      return `${wrapperOpen}<summary class="admonition-summary" style="display:flex; align-items:center; gap:0.4em; color:${color}; cursor:pointer;">${
         icon ? `<span class="admonition-icon">${icon}</span>` : ""
       }${titleHtml}<span class="arrow"></span></summary><div class="admonition-body" style="margin-top:0.6em;">`;
     } else {
-      return `<div class="admonition alert-block" style="background:${color}20;"><div class="admonition-header" style="display:flex; align-items:center; gap:0.4em; color:${color}; font-weight:bold; margin-bottom:0.4em;">${
+      return `${wrapperOpen}<div class="admonition-header" style="display:flex; align-items:center; gap:0.4em; color:${color}; font-weight:bold; margin-bottom:0.4em;">${
         icon ? `<span class="admonition-icon">${icon}</span>` : ""
       }${titleHtml}</div><div class="admonition-body">`;
     }
@@ -371,21 +425,27 @@ export default function admonitionPlugin(md: MarkdownIt) {
     idx: number,
     _options,
     env,
-    self
+    _self
   ) => {
     const content = tokens[idx].content || "";
-    return md.render(content, env);
+    const lineOffset = tokens[idx].map?.[0] ?? 0;
+    const nestedEnv = { ...env, __admonitionLineOffset: lineOffset };
+    const nestedTokens = md.parse(content, nestedEnv);
+    return md.renderer.render(nestedTokens, md.options, nestedEnv);
   };
 
-  md.renderer.rules["admonition_close"] = (tokens: Token[], idx: number) => {
-    const openToken = tokens[idx - 2] || {};
-    const meta = (openToken.meta as any) || {};
-    const keyword = (meta.keyword || "NOTE").toUpperCase();
+  md.renderer.rules["admonition_close"] = (
+    tokens: Token[],
+    idx: number,
+    options,
+    _env,
+    self
+  ) => {
+    const openToken = tokens[idx - 2];
+    const collapse = openToken?.meta?.collapseFlag as string | undefined;
 
-    if (thmMeta[keyword]) {
-      return meta.collapseFlag ? `</div></details>\n` : `</div></div>\n`;
-    } else {
-      return meta.collapseFlag ? `</div></details>\n` : `</div></div>\n`;
-    }
+    tokens[idx].tag = collapse ? "details" : "div";
+
+    return `</div>${self.renderToken(tokens, idx, options)}`;
   };
 }

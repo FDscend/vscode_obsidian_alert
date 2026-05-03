@@ -19,6 +19,16 @@
   "activationEvents": ["onLanguage:markdown"],
   "main": "./dist/extension.js",
   "contributes": {
+    "notebookRenderer": [
+      {
+        "id": "FDscend.vscode-markdown-obsidian-alert-renderer",
+        "displayName": "Markdown Obsidian Alert renderer",
+        "entrypoint": {
+          "extends": "vscode.markdown-it-renderer",
+          "path": "./dist/notebook.mjs"
+        }
+      }
+    ],
     "markdown.markdownItPlugins": true,
     "markdown.previewStyles": [
       "./media/admonition.css"

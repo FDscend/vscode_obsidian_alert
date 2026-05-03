@@ -1,6 +1,9 @@
 # Markdown Obsidian Alert & Math Theorem
 
-A powerful Visual Studio Code extension that enhances your Markdown writing experience by bringing Obsidian-style callouts and professional mathematical theorem environments right into your editor.
+| English | [中文](https://github.com/FDscend/vscode_obsidian_alert/blob/master/README.zh.md) |
+| ------- | --------------------------------------------------------------------------------- |
+
+Support for Obsidian-style callouts in Markdown previews, including Jupyter Notebook previews.
 
 ## Features
 

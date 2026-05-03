@@ -4,8 +4,11 @@
   border-radius: 6px;
 }
 .admonition-title {
+  display: inline-flex;
+  align-items: center;
   font-weight: bold;
-  margin-bottom: 0.4em;
+  line-height: 1;
+  margin-bottom: 0;
 }
 
 /* theorem style */
@@ -35,7 +38,21 @@
   border-radius: 6px;
 }
 .admonition-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 1;
   margin-right: 0.3em;
+}
+.admonition-icon svg {
+  display: block;
+  width: 1em;
+  height: 1em;
+}
+.admonition-header,
+.admonition-summary {
+  line-height: 1;
 }
 
 .alert-block summary {
