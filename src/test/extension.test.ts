@@ -23,10 +23,13 @@ suite('Extension Test Suite', () => {
 		md.render('> [!thm] Theorem name', { id: 'notebook-cell' });
 	});
 
-	test('renders foldable callouts as native details elements', () => {
+	test('renders callouts with Obsidian-compatible DOM structure', () => {
 		const markdown = [
 			'> [!faq]- Closed block',
 			'> body',
+			'',
+			'> [!border] border',
+			'> border body',
 			'',
 			'> [!note]+ Open block',
 			'> body',
@@ -39,15 +42,23 @@ suite('Extension Test Suite', () => {
 
 		assert.match(
 			html,
-			/<details[^>]*class="admonition alert-block"[^>]*>[\s\S]*?<summary class="admonition-summary"/ 
+			/<div(?=[^>]*class="[^"]*\bcallout\b[^"]*\bis-collapsible\b[^"]*\bis-collapsed\b)(?=[^>]*data-callout="faq")(?=[^>]*data-callout-fold="-")(?=[^>]*data-callout-metadata="")[^>]*>/
 		);
 		assert.doesNotMatch(
 			html,
-			/<details[^>]*(class="admonition alert-block"[^>]*open=""|open=""[^>]*class="admonition alert-block")[^>]*>[\s\S]*Closed block/
+			/<input class="callout-fold-toggle" type="checkbox" id="[^"]+" checked="" aria-hidden="true">[\s\S]*?<span class="callout-title-inner admonition-title">Closed block<\/span>/
 		);
 		assert.match(
 			html,
-			/<details[^>]*(class="admonition alert-block"[^>]*open=""|open=""[^>]*class="admonition alert-block")[^>]*>[\s\S]*Open block/
+			/<input class="callout-fold-toggle" type="checkbox" id="[^"]+" checked="" aria-hidden="true">[\s\S]*?<span class="callout-title-inner admonition-title">Open block<\/span>/
+		);
+		assert.match(
+			html,
+			/<label class="callout-title admonition-header" for="[^"]+" dir="auto">[\s\S]*?<span class="callout-icon admonition-icon">[\s\S]*?<\/span><span class="callout-title-inner admonition-title">Closed block<\/span><span class="callout-fold" aria-hidden="true">[\s\S]*?class="svg-icon lucide-chevron-down"[\s\S]*?<\/span><\/label><div class="callout-content admonition-body">/
+		);
+		assert.match(
+			html,
+			/<div(?=[^>]*class="[^"]*\bcallout\b)(?=[^>]*data-callout="border")(?=[^>]*data-callout-fold="")[^>]*>[\s\S]*?<span class="callout-title-inner admonition-title">border<\/span>[\s\S]*?<div class="callout-content admonition-body"><p>border body<\/p>/
 		);
 	});
 

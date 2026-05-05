@@ -31,6 +31,35 @@ function shiftTokenMaps(tokens: Token[], lineOffset: number) {
   }
 }
 
+function hexToRgbTuple(hex: string): string {
+  const normalized = hex.trim().replace(/^#/, "");
+
+  if (!/^[\da-fA-F]{6}$/.test(normalized)) {
+    return "23, 117, 217";
+  }
+
+  const value = Number.parseInt(normalized, 16);
+  const red = (value >> 16) & 0xff;
+  const green = (value >> 8) & 0xff;
+  const blue = value & 0xff;
+
+  return `${red}, ${green}, ${blue}`;
+}
+
+function normalizeIconSvg(icon: string): string {
+  if (!icon) {
+    return "";
+  }
+
+  if (/\bclass=/.test(icon)) {
+    return icon.replace(/class="([^"]*)"/, 'class="$1 svg-icon callout-icon-svg"');
+  }
+
+  return icon.replace(/<svg\b/, '<svg class="svg-icon callout-icon-svg"');
+}
+
+const CALLOUT_FOLD_ICON = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-chevron-down"><path d="m6 9 6 6 6-6"></path></svg>';
+
 export default function admonitionPlugin(md: MarkdownIt) {
   const thmMeta: Record<string, TheoremMeta> = {
     THM: { defaultTitle: "Theorem" },
@@ -210,7 +239,8 @@ export default function admonitionPlugin(md: MarkdownIt) {
 
     const rawKeyword = headMatch[1];
     const parts = rawKeyword.split("|");
-    const keyword = parts[0].toUpperCase();
+    const rawType = parts[0].trim();
+    const keyword = rawType.toUpperCase();
     const option = parts[1] ? parts[1] : "";
     const collapseFlag = headMatch[2]; // '+' | '-' | ''
     const customTitle = (headMatch[3] || "").trim();
@@ -238,7 +268,7 @@ export default function admonitionPlugin(md: MarkdownIt) {
     const tokenOpen = state.push("admonition_open", "div", 1);
     tokenOpen.block = true;
     tokenOpen.map = [startLine, nextLine];
-    tokenOpen.meta = { keyword, option, customTitle, collapseFlag };
+    tokenOpen.meta = { rawType, keyword, option, customTitle, collapseFlag };
 
     const tokenBody = state.push("admonition_body", "", 0);
     tokenBody.content = body;
@@ -305,15 +335,10 @@ export default function admonitionPlugin(md: MarkdownIt) {
   ) => {
     const meta = tokens[idx].meta || {};
     const keyword = (meta.keyword || "NOTE").toUpperCase();
+    const rawType = String(meta.rawType || keyword).trim() || "NOTE";
     const option = (meta.option || "").toLowerCase();
     const collapse = meta.collapseFlag as string;
     const token = tokens[idx];
-
-    token.tag = collapse ? "details" : "div";
-
-    if (collapse === "+") {
-      token.attrSet("open", "");
-    }
 
     const appendClass = (className: string) => {
       const existingClass = token.attrGet("class");
@@ -332,6 +357,13 @@ export default function admonitionPlugin(md: MarkdownIt) {
     };
 
     if (thmMeta[keyword]) {
+      token.tag = collapse ? "details" : "div";
+      meta.wrapperTag = token.tag;
+
+      if (collapse === "+") {
+        token.attrSet("open", "");
+      }
+
       const defaultTitle = thmMeta[keyword].defaultTitle || keyword;
 
       let titleHtml: string;
@@ -366,21 +398,13 @@ export default function admonitionPlugin(md: MarkdownIt) {
     }
 
     const metaDef = alertMeta[keyword] || alertMeta["NOTE"];
-    const icon = metaDef.icon || "";
-
-    const titleText = metaDef.defaultTitle || keyword;
-    let titleHtml: string;
-
-    if (meta.customTitle) {
-      titleHtml = `<span class="admonition-title">${md.renderInline(
-        meta.customTitle,
-        env
-      )}</span>`;
-    } else {
-      titleHtml = `<span class="admonition-title">${md.utils.escapeHtml(
-        titleText
-      )}</span>`;
-    }
+    const icon = normalizeIconSvg(metaDef.icon || "");
+    const calloutType = rawType.toLowerCase();
+    const isCollapsible = collapse === "+" || collapse === "-";
+    const toggleId = `callout-fold-${tokens[idx].map?.[0] ?? idx}-${idx}`;
+    const titleHtml = meta.customTitle
+      ? md.renderInline(meta.customTitle, env)
+      : md.utils.escapeHtml(calloutType);
 
     let color: string;
     if (keyword === "PDF") {
@@ -405,19 +429,41 @@ export default function admonitionPlugin(md: MarkdownIt) {
       color = metaDef.color || alertMeta.NOTE.color;
     }
 
-    appendClass("admonition alert-block");
-    appendStyle(`background:${color}20;`);
+    token.tag = "div";
+    meta.wrapperTag = token.tag;
+    token.attrSet("data-callout", calloutType);
+    token.attrSet("data-callout-metadata", String(meta.option || ""));
+    token.attrSet("data-callout-fold", collapse || "");
+
+    appendClass("callout admonition alert-block");
+
+    if (isCollapsible) {
+      appendClass("is-collapsible");
+    }
+
+    if (collapse === "-") {
+      appendClass("is-collapsed");
+    }
+
+    appendStyle(`--callout-color: ${hexToRgbTuple(color)}`);
     const wrapperOpen = self.renderToken(tokens, idx, _options);
 
-    if (collapse) {
-      return `${wrapperOpen}<summary class="admonition-summary" style="display:flex; align-items:center; gap:0.4em; color:${color}; cursor:pointer;">${
-        icon ? `<span class="admonition-icon">${icon}</span>` : ""
-      }${titleHtml}<span class="arrow"></span></summary><div class="admonition-body" style="margin-top:0.6em;">`;
-    } else {
-      return `${wrapperOpen}<div class="admonition-header" style="display:flex; align-items:center; gap:0.4em; color:${color}; font-weight:bold; margin-bottom:0.4em;">${
-        icon ? `<span class="admonition-icon">${icon}</span>` : ""
-      }${titleHtml}</div><div class="admonition-body">`;
-    }
+    const toggleHtml = isCollapsible
+      ? `<input class="callout-fold-toggle" type="checkbox" id="${toggleId}"${
+          collapse === "+" ? ' checked=""' : ""
+        } aria-hidden="true">`
+      : "";
+    const titleTag = isCollapsible ? "label" : "div";
+    const titleAttrs = isCollapsible
+      ? ` class="callout-title admonition-header" for="${toggleId}" dir="auto"`
+      : ' class="callout-title admonition-header" dir="auto"';
+    const foldIconHtml = isCollapsible
+      ? `<span class="callout-fold" aria-hidden="true">${CALLOUT_FOLD_ICON}</span>`
+      : "";
+
+    return `${wrapperOpen}${toggleHtml}<${titleTag}${titleAttrs}>${
+      icon ? `<span class="callout-icon admonition-icon">${icon}</span>` : ""
+    }<span class="callout-title-inner admonition-title">${titleHtml}</span>${foldIconHtml}</${titleTag}><div class="callout-content admonition-body">`;
   };
 
   md.renderer.rules["admonition_body"] = (
@@ -442,9 +488,9 @@ export default function admonitionPlugin(md: MarkdownIt) {
     self
   ) => {
     const openToken = tokens[idx - 2];
-    const collapse = openToken?.meta?.collapseFlag as string | undefined;
+    const wrapperTag = openToken?.meta?.wrapperTag as string | undefined;
 
-    tokens[idx].tag = collapse ? "details" : "div";
+    tokens[idx].tag = wrapperTag || "div";
 
     return `</div>${self.renderToken(tokens, idx, options)}`;
   };
