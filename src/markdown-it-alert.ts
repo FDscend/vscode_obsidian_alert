@@ -435,7 +435,7 @@ export default function admonitionPlugin(md: MarkdownIt) {
     token.attrSet("data-callout-metadata", String(meta.option || ""));
     token.attrSet("data-callout-fold", collapse || "");
 
-    appendClass("callout admonition alert-block");
+    appendClass("callout");
 
     if (isCollapsible) {
       appendClass("is-collapsible");
@@ -455,15 +455,15 @@ export default function admonitionPlugin(md: MarkdownIt) {
       : "";
     const titleTag = isCollapsible ? "label" : "div";
     const titleAttrs = isCollapsible
-      ? ` class="callout-title admonition-header" for="${toggleId}" dir="auto"`
-      : ' class="callout-title admonition-header" dir="auto"';
+      ? ` class="callout-title" for="${toggleId}" dir="auto"`
+      : ' class="callout-title" dir="auto"';
     const foldIconHtml = isCollapsible
       ? `<span class="callout-fold" aria-hidden="true">${CALLOUT_FOLD_ICON}</span>`
       : "";
 
     return `${wrapperOpen}${toggleHtml}<${titleTag}${titleAttrs}>${
-      icon ? `<span class="callout-icon admonition-icon">${icon}</span>` : ""
-    }<span class="callout-title-inner admonition-title">${titleHtml}</span>${foldIconHtml}</${titleTag}><div class="callout-content admonition-body">`;
+      icon ? `<span class="callout-icon">${icon}</span>` : ""
+    }<span class="callout-title-inner">${titleHtml}</span>${foldIconHtml}</${titleTag}><div class="callout-content">`;
   };
 
   md.renderer.rules["admonition_body"] = (

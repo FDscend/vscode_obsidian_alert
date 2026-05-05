@@ -1,5 +1,10 @@
 # Change Log
 
+## [Unreleased]
+
+- Added new callout types: `BORDER`.
+- You can customize callout styles using CSS. See the README for details.
+
 ## [0.0.2] - 2026-05-03
 
 - Fixed source line mapping for callouts and theorem blocks in Markdown preview.

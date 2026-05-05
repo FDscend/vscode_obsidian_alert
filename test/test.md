@@ -98,6 +98,8 @@ Any unsupported type defaults to the note type. The type identifier is case-inse
 
 > [!pdf|note]
 
+> [!border]
+
 # math alert
 
 Automatic Numbering (Default): Use `> [!thm]` to create a theorem environment with automatic sequential numbering.

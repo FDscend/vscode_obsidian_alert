@@ -20,7 +20,7 @@ Render beautiful Obsidian-style admonition blocks with simple syntax:
 - `TIP`, `HINT`, `IMPORTANT`, `SUCCESS`, `CHECK`, `DONE`
 - `QUESTION`, `HELP`, `FAQ`, `WARNING`, `CAUTION`, `ATTENTION`
 - `FAILURE`, `FAIL`, `MISSING`, `DANGER`, `ERROR`, `BUG`
-- `EXAMPLE`, `QUOTE`, `CITE`, `PDF`
+- `EXAMPLE`, `QUOTE`, `CITE`, `PDF`, `BORDER`
 
 ### 🧮 Mathematical Theorem Environments
 
@@ -99,6 +99,35 @@ Check out [test.md](https://github.com/FDscend/vscode_obsidian_alert/blob/master
 
 ![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img3.jpg)
 
+## Customization
+
+You can customize callout styles using CSS. Here are the steps:
+
+1. Open VS Code settings (`Ctrl + ,`) and search for [`markdown.styles`](vscode://settings/markdown.styles)；
+2. Add the path to your custom CSS file, for example: `"markdown.styles": ["./custom.css"]`；
+3. Define your callout styles in the CSS file, for example, for a border style:
+   ```css
+   div[data-callout="border"].callout {
+     background-color: transparent;
+     border: 1px solid;
+     border-color: black;
+   }
+   div[data-callout="border"].callout > .callout-title {
+     border-bottom: 1px solid;
+   }
+   div[data-callout="border"].callout > .callout-title > .callout-icon {
+     display: none;
+   }
+   ```
+
+Theoretically, you can use Obsidian snippets to achieve more complex styles.
+
 ---
 
 Transform your Markdown documents with beautiful, functional callouts and professional mathematical formatting!
+
+## Style References
+
+- [Obsidian Default Styles](https://obsidian.md/help/callouts)
+- [LaTeX-like Theorem & Equation Referencer for Obsidian](https://github.com/RyotaUshio/obsidian-latex-theorem-equation-referencer)
+- [Obsidian PDF++](https://github.com/RyotaUshio/obsidian-pdf-plus)

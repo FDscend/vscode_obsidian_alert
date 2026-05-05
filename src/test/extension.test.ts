@@ -46,19 +46,19 @@ suite('Extension Test Suite', () => {
 		);
 		assert.doesNotMatch(
 			html,
-			/<input class="callout-fold-toggle" type="checkbox" id="[^"]+" checked="" aria-hidden="true">[\s\S]*?<span class="callout-title-inner admonition-title">Closed block<\/span>/
+			/<input class="callout-fold-toggle" type="checkbox" id="[^"]+" checked="" aria-hidden="true">[\s\S]*?<span class="callout-title-inner">Closed block<\/span>/
 		);
 		assert.match(
 			html,
-			/<input class="callout-fold-toggle" type="checkbox" id="[^"]+" checked="" aria-hidden="true">[\s\S]*?<span class="callout-title-inner admonition-title">Open block<\/span>/
+			/<input class="callout-fold-toggle" type="checkbox" id="[^"]+" checked="" aria-hidden="true">[\s\S]*?<span class="callout-title-inner">Open block<\/span>/
 		);
 		assert.match(
 			html,
-			/<label class="callout-title admonition-header" for="[^"]+" dir="auto">[\s\S]*?<span class="callout-icon admonition-icon">[\s\S]*?<\/span><span class="callout-title-inner admonition-title">Closed block<\/span><span class="callout-fold" aria-hidden="true">[\s\S]*?class="svg-icon lucide-chevron-down"[\s\S]*?<\/span><\/label><div class="callout-content admonition-body">/
+			/<label class="callout-title" for="[^"]+" dir="auto">[\s\S]*?<span class="callout-icon">[\s\S]*?<\/span><span class="callout-title-inner">Closed block<\/span><span class="callout-fold" aria-hidden="true">[\s\S]*?class="svg-icon lucide-chevron-down"[\s\S]*?<\/span><\/label><div class="callout-content">/
 		);
 		assert.match(
 			html,
-			/<div(?=[^>]*class="[^"]*\bcallout\b)(?=[^>]*data-callout="border")(?=[^>]*data-callout-fold="")[^>]*>[\s\S]*?<span class="callout-title-inner admonition-title">border<\/span>[\s\S]*?<div class="callout-content admonition-body"><p>border body<\/p>/
+			/<div(?=[^>]*class="[^"]*\bcallout\b)(?=[^>]*data-callout="border")(?=[^>]*data-callout-fold="")[^>]*>[\s\S]*?<span class="callout-title-inner">border<\/span>[\s\S]*?<div class="callout-content"><p>border body<\/p>/
 		);
 	});
 

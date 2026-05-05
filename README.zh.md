@@ -20,7 +20,7 @@
 - `TIP`, `HINT`, `IMPORTANT`, `SUCCESS`, `CHECK`, `DONE`
 - `QUESTION`, `HELP`, `FAQ`, `WARNING`, `CAUTION`, `ATTENTION`
 - `FAILURE`, `FAIL`, `MISSING`, `DANGER`, `ERROR`, `BUG`
-- `EXAMPLE`, `QUOTE`, `CITE`, `PDF`
+- `EXAMPLE`, `QUOTE`, `CITE`, `PDF`, `BORDER`
 
 ### 🧮 数学定理环境
 
@@ -99,6 +99,35 @@
 
 ![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img3.jpg)
 
+## 自定义
+
+可以通过 CSS 自定义 callout 样式，以下是操作步骤：
+
+1. 在 VS Code 中打开设置（`Ctrl + ,`），搜索 [`markdown.styles`](vscode://settings/markdown.styles)；
+2. 添加自定义 CSS 文件路径，例如：`"markdown.styles": ["./custom.css"]`；
+3. 在 CSS 文件中定义你的 callout 样式，以 border 样式为例：
+   ```css
+   div[data-callout="border"].callout {
+     background-color: transparent;
+     border: 1px solid;
+     border-color: black;
+   }
+   div[data-callout="border"].callout > .callout-title {
+     border-bottom: 1px solid;
+   }
+   div[data-callout="border"].callout > .callout-title > .callout-icon {
+     display: none;
+   }
+   ```
+
+理论上可以使用 Obsidian 的 snippets 来实现更复杂的样式。
+
 ---
 
 用美观、实用的 callout 和专业的数学排版能力，全面提升你的 Markdown 文档体验。
+
+## 样式参考
+
+- [Obsidian 默认样式](https://obsidian.md/help/callouts)
+- [LaTeX-like Theorem & Equation Referencer for Obsidian](https://github.com/RyotaUshio/obsidian-latex-theorem-equation-referencer)
+- [Obsidian PDF++](https://github.com/RyotaUshio/obsidian-pdf-plus)

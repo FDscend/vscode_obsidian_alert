@@ -1,9 +1,3 @@
-.admonition {
-  padding: 0.6em 1em;
-  margin: 1em 0;
-  border-radius: 6px;
-}
-.admonition-title,
 .callout-title-inner {
   display: inline-flex;
   align-items: center;
@@ -32,15 +26,12 @@
   margin-top: 0.4em;
 }
 
-/* alert style */
-.alert-block,
 .callout {
   padding: 0.65em 0.9em 0.55em;
   margin: 0.8em 0;
   border-radius: 6px;
   background: rgba(var(--callout-color, 23, 117, 217), 0.12);
 }
-.admonition-icon,
 .callout-icon {
   display: inline-flex;
   align-items: center;
@@ -48,14 +39,11 @@
   flex-shrink: 0;
   line-height: 1;
 }
-.admonition-icon svg,
 .callout-icon svg {
   display: block;
   width: 1em;
   height: 1em;
 }
-.admonition-header,
-.admonition-summary,
 .callout-title {
   display: flex;
   align-items: center;
@@ -133,4 +121,17 @@
 }
 .thm-block[open] .arrow {
   transform: rotate(90deg);
+}
+
+/* border callout */
+div[data-callout="border"].callout {
+  background-color: transparent;
+  border: 1px solid;
+  border-color: black;
+}
+div[data-callout="border"].callout > .callout-title {
+    border-bottom: 1px solid;
+}
+div[data-callout="border"].callout > .callout-title > .callout-icon {
+    display: none;
 }
