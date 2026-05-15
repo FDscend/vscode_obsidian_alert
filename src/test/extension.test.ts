@@ -5,6 +5,7 @@ import MarkdownIt from 'markdown-it';
 // as well as import your extension to test it
 import * as vscode from 'vscode';
 import admonitionPlugin from '../markdown-it-alert';
+import { buildNotebookBaseCss, NOTEBOOK_COMPAT_CSS } from '../notebook-styles';
 
 suite('Extension Test Suite', () => {
 	vscode.window.showInformationMessage('Start all tests.');
@@ -62,6 +63,30 @@ suite('Extension Test Suite', () => {
 		);
 	});
 
+	test('supports hyphen and underscore in callout keywords', () => {
+		const markdown = [
+			'> [!note-2]',
+			'> body',
+			'',
+			'> [!note_2]',
+			'> body',
+		].join('\n');
+
+		const md = new MarkdownIt({ html: true });
+		md.use(admonitionPlugin);
+
+		const html = md.render(markdown);
+
+		assert.match(
+			html,
+			/<div(?=[^>]*class="[^"]*\bcallout\b)(?=[^>]*data-callout="note-2")[^>]*>[\s\S]*?<span class="callout-title-inner">note 2<\/span>[\s\S]*?<div class="callout-content"><p>body<\/p>/
+		);
+		assert.match(
+			html,
+			/<div(?=[^>]*class="[^"]*\bcallout\b)(?=[^>]*data-callout="note_2")[^>]*>[\s\S]*?<span class="callout-title-inner">note_2<\/span>[\s\S]*?<div class="callout-content"><p>body<\/p>/
+		);
+	});
+
 	test('preserves source line mapping inside theorem blocks', () => {
 		const markdown = [
 			'# math alert',
@@ -102,5 +127,15 @@ suite('Extension Test Suite', () => {
 			html,
 			/<p[^>]*data-line="6"[^>]*>Theorem content<\/p>/
 		);
+	});
+
+	test('includes notebook preview compatibility styles', () => {
+		assert.match(NOTEBOOK_COMPAT_CSS, /#preview > \.callout/);
+		assert.match(NOTEBOOK_COMPAT_CSS, /box-sizing: border-box/);
+		assert.match(NOTEBOOK_COMPAT_CSS, /padding-bottom: 0\.55em/);
+
+		const baseCss = buildNotebookBaseCss('.callout { color: red; }');
+		assert.ok(baseCss.startsWith('.callout { color: red; }'));
+		assert.ok(baseCss.endsWith(NOTEBOOK_COMPAT_CSS));
 	});
 });

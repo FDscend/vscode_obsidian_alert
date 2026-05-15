@@ -103,19 +103,21 @@
 
 可以通过 CSS 自定义 callout 样式，以下是操作步骤：
 
+现在这些 `markdown.styles` CSS 文件也会同步注入到 Jupyter Notebook 的 Markdown 预览中。只要路径能从当前工作区或绝对文件路径解析，同一份 callout 样式片段就可以同时作用于 `.md` 和 `.ipynb` 预览。
+
 1. 在 VS Code 中打开设置（`Ctrl + ,`），搜索 [`markdown.styles`](vscode://settings/markdown.styles)；
-2. 添加自定义 CSS 文件路径，例如：`"markdown.styles": ["./custom.css"]`；
-3. 在 CSS 文件中定义你的 callout 样式，以 border 样式为例：
+2. 添加自定义 CSS 文件路径，例如：`"markdown.styles": ["./.vscode/custom.css"]`；
+3. 在 CSS 文件中定义你的 callout 样式，以 border-blue 样式为例：
    ```css
-   div[data-callout="border"].callout {
+   div[data-callout="border-blue"].callout {
      background-color: transparent;
      border: 1px solid;
-     border-color: black;
+     border-color: blue;
    }
-   div[data-callout="border"].callout > .callout-title {
+   div[data-callout="border-blue"].callout > .callout-title {
      border-bottom: 1px solid;
    }
-   div[data-callout="border"].callout > .callout-title > .callout-icon {
+   div[data-callout="border-blue"].callout > .callout-title > .callout-icon {
      display: none;
    }
    ```

@@ -103,19 +103,21 @@ Check out [test.md](https://github.com/FDscend/vscode_obsidian_alert/blob/master
 
 You can customize callout styles using CSS. Here are the steps:
 
+The same `markdown.styles` CSS files are also injected into Jupyter Notebook Markdown previews when they can be resolved from the current workspace or an absolute file path, so one callout snippet can now style both `.md` and `.ipynb` previews.
+
 1. Open VS Code settings (`Ctrl + ,`) and search for [`markdown.styles`](vscode://settings/markdown.styles)；
-2. Add the path to your custom CSS file, for example: `"markdown.styles": ["./custom.css"]`；
-3. Define your callout styles in the CSS file, for example, for a border style:
+2. Add the path to your custom CSS file, for example: `"markdown.styles": ["./.vscode/custom.css"]`；
+3. Define your callout styles in the CSS file, for example, for a border-blue style:
    ```css
-   div[data-callout="border"].callout {
+   div[data-callout="border-blue"].callout {
      background-color: transparent;
      border: 1px solid;
-     border-color: black;
+     border-color: blue;
    }
-   div[data-callout="border"].callout > .callout-title {
+   div[data-callout="border-blue"].callout > .callout-title {
      border-bottom: 1px solid;
    }
-   div[data-callout="border"].callout > .callout-title > .callout-icon {
+   div[data-callout="border-blue"].callout > .callout-title > .callout-icon {
      display: none;
    }
    ```

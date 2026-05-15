@@ -16,13 +16,14 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": ["onLanguage:markdown"],
+  "activationEvents": ["onLanguage:markdown", "onNotebook:jupyter-notebook"],
   "main": "./dist/extension.js",
   "contributes": {
     "notebookRenderer": [
       {
         "id": "FDscend.vscode-markdown-obsidian-alert-renderer",
         "displayName": "Markdown Obsidian Alert renderer",
+        "requiresMessaging": "optional",
         "entrypoint": {
           "extends": "vscode.markdown-it-renderer",
           "path": "./dist/notebook.mjs"

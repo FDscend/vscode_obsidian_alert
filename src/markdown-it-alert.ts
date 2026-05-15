@@ -60,6 +60,10 @@ function normalizeIconSvg(icon: string): string {
 
 const CALLOUT_FOLD_ICON = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-chevron-down"><path d="m6 9 6 6 6-6"></path></svg>';
 
+function getDefaultCalloutTitle(calloutType: string): string {
+  return calloutType.replace(/-/g, " ");
+}
+
 export default function admonitionPlugin(md: MarkdownIt) {
   const thmMeta: Record<string, TheoremMeta> = {
     THM: { defaultTitle: "Theorem" },
@@ -230,7 +234,7 @@ export default function admonitionPlugin(md: MarkdownIt) {
     const firstLineText = state.src.slice(startPos, state.eMarks[startLine]);
     const firstLine = firstLineText.replace(/^\s{0,3}>\s?/, "").trim();
 
-    const headMatch = /^\[!([A-Za-z0-9]+(?:\|[^\]]*)?)\]([+-]?)(.*)/.exec(
+    const headMatch = /^\[!([A-Za-z0-9_-]+(?:\|[^\]]*)?)\]([+-]?)(.*)/.exec(
       firstLine
     );
     if (!headMatch) { return false; }
@@ -404,7 +408,7 @@ export default function admonitionPlugin(md: MarkdownIt) {
     const toggleId = `callout-fold-${tokens[idx].map?.[0] ?? idx}-${idx}`;
     const titleHtml = meta.customTitle
       ? md.renderInline(meta.customTitle, env)
-      : md.utils.escapeHtml(calloutType);
+      : md.utils.escapeHtml(getDefaultCalloutTitle(calloutType));
 
     let color: string;
     if (keyword === "PDF") {
