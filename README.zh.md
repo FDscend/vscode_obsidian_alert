@@ -86,8 +86,7 @@
 ## 安装方式
 
 1. 在 VS Code [Marketplace](https://marketplace.visualstudio.com/items?itemName=FDscend.vscode-markdown-obsidian-alert) 中安装
-2. 在你的 Markdown 文件中开始使用 Obsidian 风格的 callout
-3. 享受增强后的定理与证明数学排版体验
+2. 另外，你也可以从 GitHub 的 [Releases](https://github.com/FDscend/vscode_obsidian_alert/releases) 页面下载此扩展。
 
 ## 另请参阅
 

@@ -86,8 +86,7 @@ Create interactive, collapsible callouts:
 ## Installation
 
 1. Install from VS Code [Marketplace](https://marketplace.visualstudio.com/items?itemName=FDscend.vscode-markdown-obsidian-alert)
-2. Start using Obsidian-style callouts in your Markdown files
-3. Enjoy enhanced mathematical typesetting for theorems and proofs
+2. Alternatively, you can also download the extension from the GitHub [Releases](https://github.com/FDscend/vscode_obsidian_alert/releases) page.
 
 ## See Also
 
