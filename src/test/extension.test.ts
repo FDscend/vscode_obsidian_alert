@@ -138,6 +138,25 @@ suite('Extension Test Suite', () => {
 		);
 	});
 
+	test('renders collapsible theorem blocks with the shared fold icon', () => {
+		const markdown = [
+			'> [!thm]- Theorem name',
+			'>',
+			'> Theorem content',
+		].join('\n');
+
+		const md = new MarkdownIt({ html: true });
+		md.use(admonitionPlugin);
+
+		const html = md.render(markdown);
+
+		assert.match(
+			html,
+			/<details[^>]*class="thm-block"[^>]*>[\s\S]*?<summary class="thm-summary" role="button">Theorem 1\.[\s\S]*?<span class="callout-fold" aria-hidden="true">[\s\S]*?class="svg-icon lucide-chevron-down"[\s\S]*?<\/span><\/summary><div class="thm-body">/
+		);
+		assert.doesNotMatch(html, /class="arrow"/);
+	});
+
 	test('preserves source line mapping inside theorem blocks', () => {
 		const markdown = [
 			'# math alert',

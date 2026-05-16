@@ -397,7 +397,7 @@ export default function admonitionPlugin(md: MarkdownIt) {
       const wrapperOpen = self.renderToken(tokens, idx, _options);
 
       if (collapse) {
-        return `${wrapperOpen}<summary class="thm-summary" role="button">${titleHtml}<span class="arrow"></span></summary><div class="thm-body">`;
+        return `${wrapperOpen}<summary class="thm-summary" role="button">${titleHtml}<span class="callout-fold" aria-hidden="true">${CALLOUT_FOLD_ICON}</span></summary><div class="thm-body">`;
       } else {
         return `${wrapperOpen}<div class="thm-title">${titleHtml}</div><div class="thm-body">`;
       }
