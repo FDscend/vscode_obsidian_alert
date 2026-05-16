@@ -1,6 +1,6 @@
 # Change Log
 
-## [Unreleased]
+## [0.0.3] - 2026-05-17
 
 - Added dedicated notebook preview CSS support through the `markdown-obsidian-alert.notebook.styles` setting, so `.ipynb` Markdown previews can opt into custom styles separately from `markdown.styles`.
 - Added built-in layout presets and extra callout styles, including `BORDER`, `style-1` to `style-4`, `MULTI-COLUMN`, `*-BLANK`, `caption`, `wide-2` to `wide-5`, and `col2` to `col5`.
