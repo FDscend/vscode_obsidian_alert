@@ -5,6 +5,26 @@
 
 支持 Obsidian 风格的 callout 在 Markdown 预览中渲染，包括 Jupyter Notebook 预览。
 
+## 预览示例
+
+可查看 [test.md](https://github.com/FDscend/vscode_obsidian_alert/blob/master/test/test.md) 了解更完整的示例和使用方式。
+
+![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img1.png)
+
+![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img2.png)
+
+![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img3.png)
+
+![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img4.png)
+
+![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img5.png)
+
+![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img6.png)
+
+![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img7.png)
+
+![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img8.png)
+
 ## 功能特性
 
 ### 🎨 Obsidian 风格 Callout
@@ -93,16 +113,6 @@
 
 1. 在 VS Code [Marketplace](https://marketplace.visualstudio.com/items?itemName=FDscend.vscode-markdown-obsidian-alert) 中安装
 2. 另外，你也可以从 GitHub 的 [Releases](https://github.com/FDscend/vscode_obsidian_alert/releases) 页面下载此扩展。
-
-## 另请参阅
-
-可查看 [test.md](https://github.com/FDscend/vscode_obsidian_alert/blob/master/test/test.md) 了解更完整的示例和使用方式。
-
-![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img1.jpg)
-
-![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img2.jpg)
-
-![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img3.jpg)
 
 ## 自定义
 

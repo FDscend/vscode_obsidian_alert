@@ -5,6 +5,26 @@
 
 Support for Obsidian-style callouts in Markdown previews, including Jupyter Notebook previews.
 
+## Preview Examples
+
+Check out [test.md](https://github.com/FDscend/vscode_obsidian_alert/blob/master/test/test.md) for comprehensive examples and usage patterns.
+
+![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img1.png)
+
+![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img2.png)
+
+![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img3.png)
+
+![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img4.png)
+
+![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img5.png)
+
+![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img6.png)
+
+![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img7.png)
+
+![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img8.png)
+
 ## Features
 
 ### 🎨 Obsidian-Style Callouts
@@ -93,16 +113,6 @@ Create interactive, collapsible callouts:
 
 1. Install from VS Code [Marketplace](https://marketplace.visualstudio.com/items?itemName=FDscend.vscode-markdown-obsidian-alert)
 2. Alternatively, you can also download the extension from the GitHub [Releases](https://github.com/FDscend/vscode_obsidian_alert/releases) page.
-
-## See Also
-
-Check out [test.md](https://github.com/FDscend/vscode_obsidian_alert/blob/master/test/test.md) for comprehensive examples and usage patterns.
-
-![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img1.jpg)
-
-![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img2.jpg)
-
-![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img3.jpg)
 
 ## Customization
 
