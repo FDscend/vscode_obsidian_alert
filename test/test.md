@@ -190,6 +190,9 @@ By default the columns share width equally; you can set meta to control each col
 >
 > > [!warning|wide-2]+ Personal
 > > your notes or lists here. using markdown formatting
+>
+> > [!tip] Personal
+> > your notes or lists here. using markdown formatting
 
 You can also set meta `col2`, `col3`, `col4`, `col5` to control the number of columns to be 2, 3, 4, 5 respectively.
 
