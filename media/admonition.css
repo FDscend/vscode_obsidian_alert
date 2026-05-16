@@ -81,10 +81,12 @@
   padding-inline: 0.2em;
 }
 
+.thm-body > :first-child,
 .callout-content > :first-child {
   margin-top: 0;
 }
 
+.thm-body > :last-child,
 .callout-content > :last-child {
   margin-bottom: 0;
 }
@@ -125,7 +127,7 @@
 }
 
 .thm-block[open] .callout-fold {
-  transform: rotate(90deg);
+  transform: rotate(0deg);
 }
 
 /* border callout */
