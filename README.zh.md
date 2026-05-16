@@ -110,8 +110,8 @@
 
 Markdown 预览和 Jupyter Notebook Markdown 预览现在使用独立的 CSS 设置项：
 
-1. 在 VS Code 中打开设置（`Ctrl + ,`），搜索 [`markdown.styles`](vscode://settings/markdown.styles)；
-2. 如果也希望在 `.ipynb` 中启用同一份样式，再搜索 `markdown-obsidian-alert.notebook.styles`，并把 CSS 路径也填进去；
+1. 在 VS Code 中打开设置（`Ctrl + ,`），搜索 <a href="vscode://settings/markdown.styles" title="markdown.styles"><code>markdown.styles</code></a>；
+2. 如果也希望在 `.ipynb` 中启用同一份样式，再搜索 <a href="vscode://settings/markdown-obsidian-alert.notebook.styles" title="markdown-obsidian-alert.notebook.styles"><code>markdown-obsidian-alert.notebook.styles</code></a>，并把 CSS 路径也填进去；
 3. 添加自定义 CSS 文件路径，例如：
    ```json
    {

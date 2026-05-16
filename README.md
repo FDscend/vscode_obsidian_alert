@@ -110,8 +110,8 @@ You can customize callout styles using CSS. Here are the steps:
 
 Markdown previews and Jupyter Notebook Markdown previews now use separate CSS settings:
 
-1. Open VS Code settings (`Ctrl + ,`) and search for [`markdown.styles`](vscode://settings/markdown.styles)；
-2. If you also want the same styles in `.ipynb`, search for `markdown-obsidian-alert.notebook.styles` and add the CSS path there too；
+1. Open VS Code settings (`Ctrl + ,`) and search for <a href="vscode://settings/markdown.styles" title="markdown.styles"><code>markdown.styles</code></a>;
+2. If you also want the same styles in `.ipynb`, search for <a href="vscode://settings/markdown-obsidian-alert.notebook.styles" title="markdown-obsidian-alert.notebook.styles"><code>markdown-obsidian-alert.notebook.styles</code></a> and add the CSS path there too；
 3. Add the path to your custom CSS file, for example:
    ```json
    {
