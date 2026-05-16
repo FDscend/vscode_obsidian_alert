@@ -61,7 +61,9 @@ function normalizeIconSvg(icon: string): string {
 const CALLOUT_FOLD_ICON = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-chevron-down"><path d="m6 9 6 6 6-6"></path></svg>';
 
 function getDefaultCalloutTitle(calloutType: string): string {
-  return calloutType.replace(/-/g, " ");
+  return calloutType
+    .replace(/-/g, " ")
+    .replace(/\b[a-z]/g, (char) => char.toUpperCase());
 }
 
 export default function admonitionPlugin(md: MarkdownIt) {
@@ -406,9 +408,11 @@ export default function admonitionPlugin(md: MarkdownIt) {
     const calloutType = rawType.toLowerCase();
     const isCollapsible = collapse === "+" || collapse === "-";
     const toggleId = `callout-fold-${tokens[idx].map?.[0] ?? idx}-${idx}`;
+    const defaultTitle = alertMeta[keyword]?.defaultTitle
+      || getDefaultCalloutTitle(calloutType);
     const titleHtml = meta.customTitle
       ? md.renderInline(meta.customTitle, env)
-      : md.utils.escapeHtml(getDefaultCalloutTitle(calloutType));
+      : md.utils.escapeHtml(defaultTitle);
 
     let color: string;
     if (keyword === "PDF") {

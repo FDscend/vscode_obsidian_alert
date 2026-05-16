@@ -1,0 +1,4 @@
+{
+  "configuration.title": "Markdown Obsidian Alert",
+  "configuration.notebook.styles.markdownDescription": "要注入到此扩展处理的 Jupyter Notebook Markdown 预览中的额外 CSS 文件。路径可以相对于当前工作区，也可以是绝对文件路径或 URI。与 `markdown.styles` 不同，这个设置只影响 `.ipynb` 的 Markdown 预览。"
+}

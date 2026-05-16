@@ -22,6 +22,12 @@ Render beautiful Obsidian-style admonition blocks with simple syntax:
 - `FAILURE`, `FAIL`, `MISSING`, `DANGER`, `ERROR`, `BUG`
 - `EXAMPLE`, `QUOTE`, `CITE`, `PDF`, `BORDER`
 
+**Built-in layout helpers:**
+
+- `MULTI-COLUMN` for callout-based column layouts
+- `*-BLANK` variants such as `NOTE-BLANK` and `WARNING-BLANK` for decoration-free containers
+- Metadata presets such as `style-1` to `style-4`, `col2` to `col5`, `wide-2` to `wide-5`, and `caption`
+
 ### 🧮 Mathematical Theorem Environments
 
 Professional typesetting for mathematical documents with automatic numbering and flexible customization:
@@ -102,11 +108,18 @@ Check out [test.md](https://github.com/FDscend/vscode_obsidian_alert/blob/master
 
 You can customize callout styles using CSS. Here are the steps:
 
-The same `markdown.styles` CSS files are also injected into Jupyter Notebook Markdown previews when they can be resolved from the current workspace or an absolute file path, so one callout snippet can now style both `.md` and `.ipynb` previews.
+Markdown previews and Jupyter Notebook Markdown previews now use separate CSS settings:
 
 1. Open VS Code settings (`Ctrl + ,`) and search for [`markdown.styles`](vscode://settings/markdown.styles)；
-2. Add the path to your custom CSS file, for example: `"markdown.styles": ["./.vscode/custom.css"]`；
-3. Define your callout styles in the CSS file, for example, for a border-blue style:
+2. If you also want the same styles in `.ipynb`, search for `markdown-obsidian-alert.notebook.styles` and add the CSS path there too；
+3. Add the path to your custom CSS file, for example:
+   ```json
+   {
+     "markdown.styles": ["./.vscode/custom.css"],
+     "markdown-obsidian-alert.notebook.styles": ["./.vscode/custom.css"]
+   }
+   ```
+4. Define your callout styles in the CSS file, for example, for a border-blue style:
    ```css
    div[data-callout="border-blue"].callout {
      background-color: transparent;
@@ -121,6 +134,8 @@ The same `markdown.styles` CSS files are also injected into Jupyter Notebook Mar
    }
    ```
 
+This extension also ships additional default presets for `style-1` to `style-4`, multi-column layouts, and `*-blank|caption` image blocks.
+
 Theoretically, you can use Obsidian snippets to achieve more complex styles.
 
 ---
@@ -132,3 +147,5 @@ Transform your Markdown documents with beautiful, functional callouts and profes
 - [Obsidian Default Styles](https://obsidian.md/help/callouts)
 - [LaTeX-like Theorem & Equation Referencer for Obsidian](https://github.com/RyotaUshio/obsidian-latex-theorem-equation-referencer)
 - [Obsidian PDF++](https://github.com/RyotaUshio/obsidian-pdf-plus)
+- [Obsidian Border](https://github.com/Akifyss/obsidian-border)
+- [Obsidian Modular CSS Layout](https://github.com/efemkay/obsidian-modular-css-layout)

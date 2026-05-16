@@ -1,0 +1,4 @@
+{
+  "configuration.title": "Markdown Obsidian Alert",
+  "configuration.notebook.styles.markdownDescription": "Additional CSS files to inject into Jupyter Notebook Markdown previews handled by this extension. Paths are resolved relative to the current workspace folders, or can be absolute file paths or URIs. Unlike `markdown.styles`, this setting only affects `.ipynb` Markdown previews."
+}

@@ -1,7 +1,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
-import * as path from "node:path";
+import * as path from "path";
 import MarkdownIt from "markdown-it";
 import admonitionPlugin from "./markdown-it-alert";
 import {
@@ -11,6 +11,8 @@ import {
 } from "./notebook-styles";
 
 const textDecoder = new TextDecoder("utf-8");
+const NOTEBOOK_STYLE_CONFIGURATION_KEY =
+  "markdown-obsidian-alert.notebook.styles";
 
 async function uriExists(uri: vscode.Uri): Promise<boolean> {
   try {
@@ -27,8 +29,8 @@ function looksLikeUri(value: string): boolean {
 
 async function resolveMarkdownStyleUris(): Promise<vscode.Uri[]> {
   const configuredStyles = vscode.workspace
-    .getConfiguration("markdown")
-    .get<string[]>("styles", []);
+    .getConfiguration("markdown-obsidian-alert")
+    .get<string[]>("notebook.styles", []);
   const resolved = new Map<string, vscode.Uri>();
 
   for (const configuredStyle of configuredStyles) {
@@ -161,7 +163,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(
     vscode.workspace.onDidChangeConfiguration((event) => {
-      if (event.affectsConfiguration("markdown.styles")) {
+      if (event.affectsConfiguration(NOTEBOOK_STYLE_CONFIGURATION_KEY)) {
         void postNotebookStyles(rendererMessaging);
       }
     })

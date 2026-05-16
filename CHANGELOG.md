@@ -2,12 +2,12 @@
 
 ## [Unreleased]
 
-- Added new callout types: `BORDER`.
-- You can customize callout styles using CSS. See the README for details.
+- Added dedicated notebook preview CSS support through the `markdown-obsidian-alert.notebook.styles` setting, so `.ipynb` Markdown previews can opt into custom styles separately from `markdown.styles`.
+- Added built-in layout presets and extra callout styles, including `BORDER`, `style-1` to `style-4`, `MULTI-COLUMN`, `*-BLANK`, `caption`, `wide-2` to `wide-5`, and `col2` to `col5`.
 - Added support for custom callout keywords containing `-` and `_`, such as `> [!note-2]` and `> [!note_2]`.
-- Updated default custom callout titles so hyphenated keywords render with spaces while preserving the original `data-callout` value.
-- Synced full `markdown.styles` CSS files into Jupyter Notebook Markdown previews when the configured paths can be resolved.
-- Added notebook preview compatibility styles to avoid callouts and theorem blocks being squeezed against the right edge or bottom in `.ipynb` Markdown cells.
+- Updated default callout titles so built-in keywords render with capitalized names such as `Todo` and `Warning`, while custom hyphenated keywords remain readable without changing the original `data-callout` value.
+- Improved Markdown and notebook preview compatibility styles to use consistent box sizing and fixed multi-column layout issues caused by hidden preview placeholder nodes.
+- Updated the README documentation for the new notebook style setting and the newly bundled layout presets.
 
 ## [0.0.2] - 2026-05-03
 

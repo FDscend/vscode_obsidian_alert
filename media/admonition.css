@@ -6,6 +6,17 @@
   margin-bottom: 0;
 }
 
+.callout,
+.callout > .callout-title,
+.callout > .callout-content,
+.thm-block,
+.thm-block > .thm-title,
+.thm-block > .thm-summary,
+.thm-block > .thm-body {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
 /* theorem style */
 .thm-block {
   background: #ffffff;
@@ -134,4 +145,202 @@ div[data-callout="border"].callout > .callout-title {
 }
 div[data-callout="border"].callout > .callout-title > .callout-icon {
     display: none;
+}
+
+/* preset callout variants */
+.callout:is([data-callout-metadata*="style-1"], [data-callout*="style-1"]) {
+  border: 1px solid rgba(var(--callout-color, 23, 117, 217), 0.35);
+  padding: 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.callout:is([data-callout-metadata*="style-1"], [data-callout*="style-1"]) > .callout-title {
+  padding: 0.75em 1em 0.45em;
+}
+
+.callout:is([data-callout-metadata*="style-1"], [data-callout*="style-1"]) > .callout-content {
+  margin-top: 0;
+  padding: 0.1em 1em 0.9em;
+  border-radius: 0 0 7px 7px;
+  background: var(--vscode-editor-background, #ffffff);
+  box-shadow: inset 0 1px 0 rgba(var(--callout-color, 23, 117, 217), 0.12);
+}
+
+.callout:is([data-callout-metadata*="style-2"], [data-callout*="style-2"]) {
+  border: 1px solid rgba(var(--callout-color, 23, 117, 217), 0.35);
+  padding: 0.35em;
+  border-radius: 8px;
+}
+
+.callout:is([data-callout-metadata*="style-2"], [data-callout*="style-2"]) > .callout-title {
+  padding: 0.35em 0.7em 0.6em;
+}
+
+.callout:is([data-callout-metadata*="style-2"], [data-callout*="style-2"]) > .callout-content {
+  margin-top: 0;
+  padding: 0.85em 1em;
+  border-radius: 6px;
+  background: var(--vscode-editor-background, #ffffff);
+  box-shadow: inset 0 0 0 1px rgba(var(--callout-color, 23, 117, 217), 0.1);
+}
+
+.callout:is([data-callout-metadata*="style-3"], [data-callout*="style-3"]) {
+  border: 0;
+  border-inline-start: 4px solid rgb(var(--callout-color, 23, 117, 217));
+  border-radius: 8px;
+  padding: 0.7em 0.95em 0.65em 1.1em;
+  background: rgba(var(--callout-color, 23, 117, 217), 0.14);
+}
+
+.callout:is([data-callout-metadata*="style-3"], [data-callout*="style-3"]) > .callout-content {
+  margin-top: 0.35em;
+  padding-inline: 0;
+}
+
+.callout:is([data-callout-metadata*="style-4"], [data-callout*="style-4"]) {
+  border: 0;
+  border-inline-start: 4px solid rgb(var(--callout-color, 23, 117, 217));
+  border-radius: 8px;
+  padding: 0;
+  overflow: hidden;
+  background: rgba(var(--callout-color, 23, 117, 217), 0.12);
+}
+
+.callout:is([data-callout-metadata*="style-4"], [data-callout*="style-4"]) > .callout-title {
+  padding: 0.75em 1em 0.45em;
+  background: rgba(var(--callout-color, 23, 117, 217), 0.16);
+}
+
+.callout:is([data-callout-metadata*="style-4"], [data-callout*="style-4"]) > .callout-content {
+  margin-top: 0;
+  padding: 0.1em 1em 0.9em;
+  border-radius: 0 0 7px 7px;
+  background: var(--vscode-editor-background, #ffffff);
+  box-shadow: inset 0 1px 0 rgba(var(--callout-color, 23, 117, 217), 0.12);
+}
+
+/* multi-column layout */
+div[data-callout="multi-column"].callout {
+  --callout-gap: 0.9rem;
+  --callout-min-width: 14rem;
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+
+div[data-callout="multi-column"].callout > .callout-title {
+  display: none;
+}
+
+div[data-callout="multi-column"].callout > .callout-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--callout-gap);
+  align-items: stretch;
+  margin-top: 0;
+  padding: 0;
+}
+
+div[data-callout="multi-column"].callout > .callout-content > #markdown-mermaid,
+div[data-callout="multi-column"].callout > .callout-content > [aria-hidden="true"] {
+  display: none;
+}
+
+div[data-callout="multi-column"].callout > .callout-content > * {
+  flex: 1 1 0;
+  min-width: min(100%, var(--callout-min-width));
+  margin: 0;
+}
+
+div[data-callout="multi-column"].callout > .callout-content > .callout {
+  display: flex;
+  flex-direction: column;
+}
+
+div[data-callout="multi-column"].callout > .callout-content > .callout .callout-content {
+  flex-grow: 1;
+}
+
+div[data-callout="multi-column"].callout > .callout-content > [data-callout-metadata*="wide-2"] {
+  flex: 2 1 0;
+}
+
+div[data-callout="multi-column"].callout > .callout-content > [data-callout-metadata*="wide-3"] {
+  flex: 3 1 0;
+}
+
+div[data-callout="multi-column"].callout > .callout-content > [data-callout-metadata*="wide-4"] {
+  flex: 4 1 0;
+}
+
+div[data-callout="multi-column"].callout > .callout-content > [data-callout-metadata*="wide-5"] {
+  flex: 5 1 0;
+}
+
+div[data-callout="multi-column"][data-callout-metadata*="flex-h"].callout > .callout-content {
+  align-items: flex-start;
+}
+
+div[data-callout="multi-column"][data-callout-metadata*="col2"].callout > .callout-content > * {
+  flex-basis: 48%;
+}
+
+div[data-callout="multi-column"][data-callout-metadata*="col3"].callout > .callout-content > * {
+  flex-basis: 31%;
+}
+
+div[data-callout="multi-column"][data-callout-metadata*="col4"].callout > .callout-content > * {
+  flex-basis: 23%;
+}
+
+div[data-callout="multi-column"][data-callout-metadata*="col5"].callout > .callout-content > * {
+  flex-basis: 18%;
+}
+
+/* blank containers */
+div[data-callout*="blank"].callout {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+div[data-callout*="blank"].callout > .callout-title {
+  display: none;
+}
+
+div[data-callout*="blank"].callout > .callout-content {
+  margin-top: 0;
+  padding: 0;
+}
+
+div[data-callout*="blank"].callout > .callout-content > p:only-child {
+  margin-block: 0;
+}
+
+/* caption option */
+div[data-callout*="blank"][data-callout-metadata*="caption"].callout {
+  margin-inline: auto;
+  margin-inline-start: 40px;
+  margin-inline-end: 40px;
+}
+
+div[data-callout*="blank"][data-callout-metadata*="caption"].callout > .callout-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  text-align: center;
+}
+
+div[data-callout*="blank"][data-callout-metadata*="caption"].callout > .callout-content > p {
+  margin: 0;
+  color: hsl(232, 9%, 36%);
+}
+
+div[data-callout*="blank"][data-callout-metadata*="caption"].callout > .callout-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }

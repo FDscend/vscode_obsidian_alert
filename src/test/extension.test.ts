@@ -1,4 +1,6 @@
 import * as assert from 'assert';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import MarkdownIt from 'markdown-it';
 
 // You can import and use all API from the 'vscode' module
@@ -79,11 +81,60 @@ suite('Extension Test Suite', () => {
 
 		assert.match(
 			html,
-			/<div(?=[^>]*class="[^"]*\bcallout\b)(?=[^>]*data-callout="note-2")[^>]*>[\s\S]*?<span class="callout-title-inner">note 2<\/span>[\s\S]*?<div class="callout-content"><p>body<\/p>/
+			/<div(?=[^>]*class="[^"]*\bcallout\b)(?=[^>]*data-callout="note-2")[^>]*>[\s\S]*?<span class="callout-title-inner">Note 2<\/span>[\s\S]*?<div class="callout-content"><p>body<\/p>/
 		);
 		assert.match(
 			html,
-			/<div(?=[^>]*class="[^"]*\bcallout\b)(?=[^>]*data-callout="note_2")[^>]*>[\s\S]*?<span class="callout-title-inner">note_2<\/span>[\s\S]*?<div class="callout-content"><p>body<\/p>/
+			/<div(?=[^>]*class="[^"]*\bcallout\b)(?=[^>]*data-callout="note_2")[^>]*>[\s\S]*?<span class="callout-title-inner">Note_2<\/span>[\s\S]*?<div class="callout-content"><p>body<\/p>/
+		);
+	});
+
+	test('uses configured default titles for built-in callouts', () => {
+		const markdown = [
+			'> [!todo]',
+			'> body',
+			'',
+			'> [!warning]',
+			'> body',
+		].join('\n');
+
+		const md = new MarkdownIt({ html: true });
+		md.use(admonitionPlugin);
+
+		const html = md.render(markdown);
+
+		assert.match(html, /<span class="callout-title-inner">Todo<\/span>/);
+		assert.match(html, /<span class="callout-title-inner">Warning<\/span>/);
+	});
+
+	test('renders layout callouts with metadata used by default styles', () => {
+		const markdown = [
+			'> [!multi-column|col2]',
+			'>',
+			'> > [!warning|wide-2]+ Resources',
+			'> > body',
+			'>',
+			'> > [!note-blank|caption]',
+			'> > ![](https://example.com/image.png)',
+			'> > Caption text',
+		].join('\n');
+
+		const md = new MarkdownIt({ html: true });
+		md.use(admonitionPlugin);
+
+		const html = md.render(markdown);
+
+		assert.match(
+			html,
+			/<div(?=[^>]*class="[^"]*\bcallout\b)(?=[^>]*data-callout="multi-column")(?=[^>]*data-callout-metadata="col2")[^>]*>/
+		);
+		assert.match(
+			html,
+			/<div(?=[^>]*class="[^"]*\bcallout\b[^\"]*\bis-collapsible\b)(?=[^>]*data-callout="warning")(?=[^>]*data-callout-metadata="wide-2")(?=[^>]*data-callout-fold="\+")[^>]*>/
+		);
+		assert.match(
+			html,
+			/<div(?=[^>]*class="[^"]*\bcallout\b)(?=[^>]*data-callout="note-blank")(?=[^>]*data-callout-metadata="caption")[^>]*>/
 		);
 	});
 
@@ -137,5 +188,23 @@ suite('Extension Test Suite', () => {
 		const baseCss = buildNotebookBaseCss('.callout { color: red; }');
 		assert.ok(baseCss.startsWith('.callout { color: red; }'));
 		assert.ok(baseCss.endsWith(NOTEBOOK_COMPAT_CSS));
+	});
+
+	test('ships default CSS for layout presets and notebook-friendly callouts', () => {
+		const alertCss = fs.readFileSync(
+			path.resolve(__dirname, '../../media/admonition.css'),
+			'utf8'
+		);
+
+		assert.match(alertCss, /\[data-callout-metadata\*="style-1"\]/);
+		assert.match(alertCss, /\.callout,[\s\S]*box-sizing: border-box/);
+		assert.match(alertCss, /style-3[\s\S]*border-radius: 8px/);
+		assert.match(alertCss, /style-4[\s\S]*background: var\(--vscode-editor-background, #ffffff\)/);
+		assert.match(alertCss, /\[data-callout="multi-column"\]/);
+		assert.match(alertCss, /> \* \{[\s\S]*flex: 1 1 0/);
+		assert.match(alertCss, /\[data-callout-metadata\*="wide-2"\] \{[\s\S]*flex: 2 1 0/);
+		assert.match(alertCss, /#markdown-mermaid/);
+		assert.match(alertCss, /\[data-callout\*="blank"\]/);
+		assert.match(alertCss, /\[data-callout-metadata\*="caption"\]/);
 	});
 });

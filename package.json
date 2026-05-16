@@ -19,6 +19,19 @@
   "activationEvents": ["onLanguage:markdown", "onNotebook:jupyter-notebook"],
   "main": "./dist/extension.js",
   "contributes": {
+    "configuration": {
+      "title": "%configuration.title%",
+      "properties": {
+        "markdown-obsidian-alert.notebook.styles": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "markdownDescription": "%configuration.notebook.styles.markdownDescription%"
+        }
+      }
+    },
     "notebookRenderer": [
       {
         "id": "FDscend.vscode-markdown-obsidian-alert-renderer",

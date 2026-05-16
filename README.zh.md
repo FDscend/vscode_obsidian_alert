@@ -22,6 +22,12 @@
 - `FAILURE`, `FAIL`, `MISSING`, `DANGER`, `ERROR`, `BUG`
 - `EXAMPLE`, `QUOTE`, `CITE`, `PDF`, `BORDER`
 
+**内置布局辅助能力：**
+
+- `MULTI-COLUMN`：用于基于 callout 的多栏布局
+- `*-BLANK` 变体：例如 `NOTE-BLANK`、`WARNING-BLANK`，用于无装饰容器
+- 元数据预设：例如 `style-1` 到 `style-4`、`col2` 到 `col5`、`wide-2` 到 `wide-5`、`caption`
+
 ### 🧮 数学定理环境
 
 为数学文档提供专业排版，支持自动编号以及灵活自定义：
@@ -102,11 +108,18 @@
 
 可以通过 CSS 自定义 callout 样式，以下是操作步骤：
 
-现在这些 `markdown.styles` CSS 文件也会同步注入到 Jupyter Notebook 的 Markdown 预览中。只要路径能从当前工作区或绝对文件路径解析，同一份 callout 样式片段就可以同时作用于 `.md` 和 `.ipynb` 预览。
+Markdown 预览和 Jupyter Notebook Markdown 预览现在使用独立的 CSS 设置项：
 
 1. 在 VS Code 中打开设置（`Ctrl + ,`），搜索 [`markdown.styles`](vscode://settings/markdown.styles)；
-2. 添加自定义 CSS 文件路径，例如：`"markdown.styles": ["./.vscode/custom.css"]`；
-3. 在 CSS 文件中定义你的 callout 样式，以 border-blue 样式为例：
+2. 如果也希望在 `.ipynb` 中启用同一份样式，再搜索 `markdown-obsidian-alert.notebook.styles`，并把 CSS 路径也填进去；
+3. 添加自定义 CSS 文件路径，例如：
+   ```json
+   {
+     "markdown.styles": ["./.vscode/custom.css"],
+     "markdown-obsidian-alert.notebook.styles": ["./.vscode/custom.css"]
+   }
+   ```
+4. 在 CSS 文件中定义你的 callout 样式，以 border-blue 样式为例：
    ```css
    div[data-callout="border-blue"].callout {
      background-color: transparent;
@@ -121,6 +134,8 @@
    }
    ```
 
+扩展默认还内置了 `style-1` 到 `style-4`、多栏布局以及 `*-blank|caption` 图片块等额外样式。
+
 理论上可以使用 Obsidian 的 snippets 来实现更复杂的样式。
 
 ---
@@ -132,3 +147,5 @@
 - [Obsidian 默认样式](https://obsidian.md/help/callouts)
 - [LaTeX-like Theorem & Equation Referencer for Obsidian](https://github.com/RyotaUshio/obsidian-latex-theorem-equation-referencer)
 - [Obsidian PDF++](https://github.com/RyotaUshio/obsidian-pdf-plus)
+- [Obsidian Border](https://github.com/Akifyss/obsidian-border)
+- [Obsidian Modular CSS Layout](https://github.com/efemkay/obsidian-modular-css-layout)
