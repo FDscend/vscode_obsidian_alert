@@ -9,21 +9,11 @@ Support for Obsidian-style callouts in Markdown previews, including Jupyter Note
 
 Check out [test.md](https://github.com/FDscend/vscode_obsidian_alert/blob/master/test/test.md) for comprehensive examples and usage patterns.
 
-![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img1.png)
-
-![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img2.png)
-
-![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img3.png)
-
-![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img4.png)
-
-![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img5.png)
-
-![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img6.png)
-
-![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img7.png)
-
-![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img8.png)
+| ![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img1.png) | ![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img2.png) |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| ![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img3.png) | ![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img4.png) |
+| ![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img5.png) | ![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img6.png) |
+| ![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img7.png) | ![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img8.png) |
 
 ## Features
 

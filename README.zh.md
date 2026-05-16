@@ -9,21 +9,11 @@
 
 可查看 [test.md](https://github.com/FDscend/vscode_obsidian_alert/blob/master/test/test.md) 了解更完整的示例和使用方式。
 
-![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img1.png)
-
-![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img2.png)
-
-![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img3.png)
-
-![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img4.png)
-
-![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img5.png)
-
-![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img6.png)
-
-![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img7.png)
-
-![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img8.png)
+| ![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img1.png) | ![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img2.png) |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| ![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img3.png) | ![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img4.png) |
+| ![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img5.png) | ![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img6.png) |
+| ![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img7.png) | ![](https://raw.githubusercontent.com/FDscend/vscode_obsidian_alert/refs/heads/master/img/img8.png) |
 
 ## 功能特性
 
